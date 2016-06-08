@@ -31,9 +31,7 @@ const ResultArea = props => {
         >
           {
             (()=>{
-
-              if(items){
-                const dom = items.map( (item,idx)=>{
+              return items && items.map( (item,idx)=>{
 
                   if( item.id.videoId ){
                     return(
@@ -43,11 +41,6 @@ const ResultArea = props => {
                     )
                   }
                 })
-                return dom
-
-              } else {
-                return undefined
-              }
             })()
           }
           </VelocityTransitionGroup>
