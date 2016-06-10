@@ -3,8 +3,6 @@ import {get} from './utils/externalData';
 import {wait} from './utils/wait';
 import {debounce} from './utils/debounce';
 
-const YOUTUBE_API_KEY = 'set your youtube api key';
-const SEARCH_NUM = 50;
 let isLock = false;
 
 export const getYoutubeData = (searchWord, clean, success, fail) => {
@@ -13,7 +11,7 @@ export const getYoutubeData = (searchWord, clean, success, fail) => {
 
   debounce(()=> {
 
-    const url = `https://www.googleapis.com/youtube/v3/search?key=${YOUTUBE_API_KEY}&part=snippet&maxResults=${SEARCH_NUM}&q=${searchWord}`;
+    const url = `https://dry-plains-46710.herokuapp.com/index.php?sw=${searchWord}`;
     let isError = false;
 
     (async()=> {
@@ -25,16 +23,18 @@ export const getYoutubeData = (searchWord, clean, success, fail) => {
 
       await get(url).then(res => {
         let data = JSON.parse(res);
-        success(Object.assign({}, data));
+        success(data);
 
-      }).catch(e => {
-        fail();
-        isError = true;
+        }).catch(e => {
+            fail();
+          isError = true;
       });
+
       if (isError)return;
       isLock = false;
 
     })()
 
   },500);
+
 }
