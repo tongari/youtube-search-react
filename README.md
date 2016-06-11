@@ -1,5 +1,5 @@
 # youtube-search-react
 
-# Product
+## Product
 	
 See [Web site](https://secure-shelf-64050.herokuapp.com/).
