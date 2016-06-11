@@ -30,13 +30,14 @@
     "watch": "webpack --progress --watch",
     "clean": "rimraf dist",
     "server": "browser-sync start --config bs-config.js",
-    "dev": "npm run server & npm run watch"
+    "dev": "npm run server & npm run watch",
+    "heroku": "npm run build"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://tongari@bitbucket.org/tongari/webpack-start.git"
+    "url": "git+https://github.com/tongari/youtube-search-react.git"
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://bitbucket.org/tongari/webpack-start#readme"
+  "homepage": "https://github.com/tongari/youtube-search-react#readme"
 }
