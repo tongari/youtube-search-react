@@ -1,18 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom'
+import React from 'react';
+import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 import configStore from './store/configStore';
 import App from './containers/App';
 
 const store = configStore();
 
-const render = ()=> {
-  ReactDOM.render(
-    <App store={store}/>, document.querySelector('#app')
-  )
-}
-
-render();
-store.subscribe(() => {
-  render();
-});
-
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>, document.querySelector('#app')
+);

@@ -31,7 +31,7 @@ const ResultArea = props => {
         >
           {
             (()=>{
-              return items && items.map( (item,idx)=>{
+              return items.map( (item,idx)=>{
 
                   if( item.id.videoId ){
                     return(
@@ -47,6 +47,14 @@ const ResultArea = props => {
       </ul>
     </div>
   );
+};
+
+ResultArea.defaultProps = {
+  items: []
+};
+
+ResultArea.propTypes = {
+  items: React.PropTypes.array.isRequired
 };
 
 export default ResultArea;

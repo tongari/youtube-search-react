@@ -1,15 +1,10 @@
 import {combineReducers} from 'redux';
-import {
-  INPUT_TEXT_VALUE_CHANGE,
-  API_SUCCESS,
-  API_FAIL,
-  DELETE_SEARCH_ITEM
-} from '../actions/index'
+import * as actions from '../actions/index'
 
 const inputTextValue = (state = 'react.js', action) => {
 
   switch (action.type) {
-    case INPUT_TEXT_VALUE_CHANGE:
+    case actions.INPUT_TEXT_VALUE_CHANGE:
       return action.value;
 
     default:
@@ -19,13 +14,13 @@ const inputTextValue = (state = 'react.js', action) => {
 
 const apiData = (state = {}, action) => {
   switch (action.type) {
-    case API_SUCCESS:
+    case actions.API_SUCCESS:
       return action.apiData;
 
-    case API_FAIL:
+    case actions.API_FAIL:
       return 'fail connect'
 
-    case DELETE_SEARCH_ITEM:
+    case actions.DELETE_SEARCH_ITEM:
       return {}
 
     default:
@@ -33,6 +28,25 @@ const apiData = (state = {}, action) => {
   }
 }
 
-const rootReducer = combineReducers({apiData, inputTextValue});
+const youtubeData = (state = {}, action) => {
+  switch (action.type) {
+    case actions.SHOW_LOADING:
+      return {isFetching: true};
+
+    case actions.RESULT_YOUTUBE_DATA:
+      return {data: action.result}
+
+    case actions.ERROR_DATA:
+      return {isError: true}
+
+    case actions.DELETE_SEARCH_ITEM:
+      return {}
+
+    default:
+      return state;
+  }
+}
+
+const rootReducer = combineReducers({apiData, inputTextValue, youtubeData});
 
 export default rootReducer

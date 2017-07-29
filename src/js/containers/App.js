@@ -1,45 +1,40 @@
 import React from 'react';
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 import InputArea from '../components/InputArea';
 import ResultArea from '../components/ResultArea';
 import {getYoutubeData} from '../domain/youtubeConnector';
-import {
-  getApiDataSuccess,
-  getApiDataFail,
-  onChangeValue,
-  onDeleteSearchItem
-} from '../actions/index';
+import * as actions from '../actions/index';
 
-export default class App extends React.Component {
+class App extends React.Component {
 
-  getApiAction(val) {
-    this.props.store.dispatch(onChangeValue(val));
+  doLoading() {
+    return (this.props.store.youtubeData.isFetching) ? <p>Loading</p> : null;
+  }
 
-    getYoutubeData(
-      this.props.store.getState().inputTextValue,
-      ()=> this.props.store.dispatch(onDeleteSearchItem()),
-      data => this.props.store.dispatch(getApiDataSuccess(data)),
-      ()=> this.props.store.dispatch(getApiDataFail())
-    )
+  showError() {
+    return (this.props.store.youtubeData.isError) ? <p>Error!!</p> : null;
   }
 
   componentDidMount() {
-    this.getApiAction(this.props.store.getState().inputTextValue);
+    // this.getApiAction(this.props.store.inputTextValue);
   }
 
   render() {
-    const {store} = this.props;
+    const {store, bActions} = this.props;
 
     return (
       <div>
-
         <InputArea
-          inputTextValue={ store.getState().inputTextValue }
-          onChange={ e => this.getApiAction(e.target.value) }
-          // onGetApiData = {() => this.getApiAction() }
-          // onChange = { e => store.dispatch( onChangeValue(e.target.value) ) }
+          inputTextValue={ store.inputTextValue }
+          // onChange={ e => this.getApiAction(e.target.value) }
+          onChange={ (e) => bActions.onChangeValue(e.target.value) }
+          onFetchYoutubeData={bActions.parallelFetchYoutubeData}
         />
+        {this.doLoading()}
+        {this.showError()}
         <ResultArea
-          {...store.getState().apiData }
+          {...store.youtubeData.data }
         />
 
       </div>
@@ -50,3 +45,12 @@ export default class App extends React.Component {
 App.propTypes = {
   store: React.PropTypes.object.isRequired
 };
+
+const mapStateToProps = state => ({
+  store: state,
+});
+const mapDispatchToProps = dispatch => ({
+  bActions: bindActionCreators(actions, dispatch),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

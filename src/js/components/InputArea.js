@@ -4,8 +4,8 @@ import Style from '../../css/inputArea.css';
 const InputArea = props => {
   const {
     inputTextValue,
-    onChange
-    // onGetApiData
+    onChange,
+    onFetchYoutubeData
   } = props;
 
   return (
@@ -13,15 +13,15 @@ const InputArea = props => {
       <label>
         <input className={Style.textBox} type="text" placeholder="search word" defaultValue={inputTextValue} onChange = {onChange} />
       </label>
-      {/*<button onClick={ onGetApiData }>Search video</button>*/}
+      <button onClick={ onFetchYoutubeData }>Search video</button>
     </div>
   );
 };
 
 InputArea.propTypes = {
   inputTextValue: React.PropTypes.string.isRequired,
-  onChange: React.PropTypes.func.isRequired
-  // onGetApiData: React.PropTypes.func.isRequired
+  onChange: React.PropTypes.func.isRequired,
+  onFetchYoutubeData: React.PropTypes.func.isRequired
 };
 
 export default InputArea;
