@@ -44,24 +44,15 @@ export const serialFetchYoutubeData = () => (
           .then((res) => {
             result = JSON.parse(res);
           })
-          .catch((err)=> {
-            return dispatch(errorData(err))
-          });
 
         const totalCount = result.pageInfo.totalResults;
         await get(`https://dry-plains-46710.herokuapp.com/index.php?sw=${totalCount}`)
           .then((res) => {
-            return JSON.parse(res)
+            return dispatch(resultYoutubeData(JSON.parse(res)))
           })
-          .then((data) => {
-            return dispatch(resultYoutubeData(data))
-          })
-          .catch((err)=> {
-            return dispatch(errorData(err))
-          });
       };
-      return doSerial().catch((e)=>{
-        alert('errorっす');
+      return doSerial().catch((err)=>{
+        return dispatch(errorData(err))
       });
     },500);
   }

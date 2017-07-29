@@ -29,7 +29,7 @@ class App extends React.Component {
           inputTextValue={ store.inputTextValue }
           // onChange={ e => this.getApiAction(e.target.value) }
           onChange={ (e) => bActions.onChangeValue(e.target.value) }
-          onFetchYoutubeData={bActions.parallelFetchYoutubeData}
+          onFetchYoutubeData={bActions.serialFetchYoutubeData}
         />
         {this.doLoading()}
         {this.showError()}
